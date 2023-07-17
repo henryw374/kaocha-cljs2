@@ -96,7 +96,7 @@
         client-ids   (clients-hook suite)
         testables    (map (comp (partial client-testable conn)) client-ids)
         _ (log/debug :-load/got-clients {:client-ids client-ids})
-        tests (add-timeouts (testable/load-testables testables) timeout)
+        tests (add-timeouts (testable/load-testables (add-timeouts testables timeout)) timeout)
         _ (log/debug :-load/loaded-tests {:testable-ids (map ::testable/id tests)})]
     (assoc suite
            ::testable/aliases [:cljs]
